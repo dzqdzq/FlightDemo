@@ -39,7 +39,7 @@ async function saveOrder(data:OrderInfo){
 
 // 设置过期标记
 function setExpireFlag(orderId:string, ms:number, uid:string){
-  return global.rdb.main.psetex(orderId, ms, uid);
+  return global.rdb!.main.psetex(orderId, ms, uid);
 }
 
 /**

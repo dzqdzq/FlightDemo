@@ -3,13 +3,13 @@ import mongoose from 'mongoose';
 import mongodb from './mongodb/';
 import redis from './redis';
 import {RedisDBS} from '../types';
+import to from 'await-to-js';
 
-const to = require('await-to-js').default;
 
 const {redisConfig, mongoConfig} = config;
 
 async function start(){
-  let err, mdb:mongoose.Mongoose, rdb:RedisDBS;
+  let err, mdb:mongoose.Mongoose|undefined, rdb:RedisDBS|undefined;
   // console.log('开始连接 ', mongoConfig);
   [err, mdb] = await to(mongodb.start(mongoConfig));
   if(err){

@@ -4,8 +4,8 @@ import mongoose from 'mongoose'
 declare global {
     namespace NodeJS {
         interface Global {
-            rdb: RedisDBS;
-            mdb: mongoose.Mongoose;
+            rdb: RedisDBS|undefined;
+            mdb: mongoose.Mongoose|undefined;
         }
     }
 }
