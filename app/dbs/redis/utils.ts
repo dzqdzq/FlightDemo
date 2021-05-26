@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 
 
-export class Model{
+export class Model {
   // @ts-ignore
   public Default:unknown;
 
@@ -67,7 +67,7 @@ function _createModel(option: RedisModelOption) {
 
   if (isObject) {
     const Default:{[key:string]:any} = {};
-    _.forEach(option.value as {}, (v, key)=>{
+    _.forEach(option.value as {[prop:string]:unknown}, (v, key)=>{
       // @ts-ignore
       Default[key] = _.isFunction(v.default) ? v.default() : v.default;
     });

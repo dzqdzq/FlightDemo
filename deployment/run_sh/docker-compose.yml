@@ -1,7 +1,7 @@
 version: '3'
 services:
-  prod-yangxinhua-tyxb_tymh:
-    image: 10.251.26.11:5000/prod-image-tyxb-tymh_interface_openservice_tyxb:20170710
+  prod-tyxb_tymh:
+    image: 10.251.26.11:5000/prod-image-tyxb-tymh_interface_openservice_tyxb:20210526
     restart: always
     deploy:
       replicas: 4
@@ -12,15 +12,12 @@ services:
       restart_policy:
          condition: on-failure
     ports:
-      - "8011:5102"
-      - "19306:9001"
-    container_name: prod-yangxinhua-tyxb_tymh
+      - "8011:3000"
+    container_name: prod-tyxb_tymh
     volumes:
-      - /app/logs/prod-yangxinhua/python/tymh_interface_openservice_tyxb:/opt/logs
-      - /app/logs/prod-yangxinhua/python/tymh_interface_openservice_tyxb:/app/python_apps_logs
-      - /app/logs/prod-yangxinhua/python/tymh_interface_openservice_tyxb:/app/python-apps-logs
-      - /tyxb/agreement/:/tyxb/agreement/
-      - /dzdjd/registration_form/:/dzdjd/registration_form/
+      - /app/logs/prod/python/tymh_interface_openservice_tyxb:/opt/logs
+      - /app/logs/prod/python/tymh_interface_openservice_tyxb:/app/python_apps_logs
+      - /app/logs/prod/python/tymh_interface_openservice_tyxb:/app/python-apps-logs
     environment:
       - LOG_PREFIX=/opt/logs
 

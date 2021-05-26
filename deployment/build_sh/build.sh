@@ -6,7 +6,7 @@
 #
 
 # docker image name
-IMAGENAME="prod-image-tyxb-htinformconsumer:`date +%Y%m%d`01"
+IMAGENAME="prod-image-flightdemo:`date +%Y%m%d`01"
 # docker Dockerfile path
 DOCKERPATH="../"
 # docker hup

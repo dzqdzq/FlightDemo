@@ -5,7 +5,6 @@ import codes from './codes';
 import config from './config';
 import * as Order from './dao/Order';
 import Redis from 'ioredis';
-import {Document} from 'mongoose'
 import TicketDAO from './dao/Ticket';
 import Flight from './dao/Flight';
 import { log as oplog } from './dao/OpLog';
@@ -13,7 +12,6 @@ import { OrderState, OpName } from './constant';
 import { OrderInfo, TicketInfo } from './types';
 import { ObjectId } from 'bson';
 import { sleep } from './utils';
-import mongoose from 'mongoose';
 
 const { createTicketOrderConfig, payTicketOrderConfig } = config;
 

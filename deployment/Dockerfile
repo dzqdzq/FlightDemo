@@ -1,16 +1,16 @@
 
 ##################################################################
 #### <描述>
-# IMAGE:prod-image-tyxb-tymh-htInformConsumer
-# VERSION: 20170708
-# TIME:2017-07-08
-# AUTHOR:YANGXINHUA
-# FUNCTION:生产小白：独立小白 V3活体报竣服务服务 <python> 
+# IMAGE:FlightDemoImage
+# VERSION: 1.1.0
+# TIME:2021-05-26
+# AUTHOR:邓中强
+# FUNCTION:FlightDemo
 ##################################################################
 
 ##################################################################
-FROM prod-image-tyxb/python/web:v2
-MAINTAINER shiyongqin Arthur <442365450@qq.com>
+FROM nodeServer
+MAINTAINER dzqdzq Arthur <635587322@qq.com>
 
 ##################################################################
 #copy宿主机编写的 tomcat 的supervisor配置文件。
@@ -27,5 +27,5 @@ COPY ./dist/ /app/node_apps/
 
 ##################################################################
 #### 启动
-CMD pm2 -c /etc/supervisord.conf  
+CMD pm2 start ecosystem.config.js
 ##################################################################

@@ -1,6 +1,6 @@
 ##################################################################
 #### <描述>
-# IMAGE:node
+# IMAGE:nodeServer
 # TIME:2021-05-21
 # AUTHOR:邓中强
 ##################################################################
@@ -20,29 +20,8 @@ RUN echo "alias ll='ls -l'" >> ~/.bashrc
 # 创建软件目录
 RUN mkdir -p /soft
 
-# 安装依赖包，确保pip不出错
-RUN yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel
+RUN npm i -g npx
 
-# 安装python3
-RUN mkdir /soft/Python-3.7.2
-COPY ./soft/Python-3.7.2 /soft/Python-3.7.2/
-WORKDIR /soft/Python-3.7.2/
-RUN chmod +x configure
-RUN ./configure --prefix=/soft/python3.7.2
-RUN make && make install
-RUN ln -s /soft/python3.7.2/bin/python3.7 /usr/bin/python3
-RUN ln -s /soft/python3.7.2/bin/pip3.7 /usr/bin/pip3
-
-
-# 安装instantclient
-RUN mkdir /soft/instantclient_18_3
-COPY ./soft/instantclient_18_3 /soft/instantclient_18_3/
-
-# 设置系统环境变量
-ENV LD_LIBRARY_PATH=/soft/instantclient_18_3/lib ORACLE_HOME=/soft/instantclient_18_3 WORKON_HOME=/Envs
-
-# 安装cx_Oracle
-RUN pip3 install cx_Oracle==7.1.1
 
 # 安装supervisor
 RUN pip3 install git+https://github.com/Supervisor/supervisor

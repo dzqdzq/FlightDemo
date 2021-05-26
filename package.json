@@ -8,7 +8,7 @@
     "makeData": "tsc && node dist/makeData.js",
     "start": "tsc && node dist/app.js",
     "test": "ts-mocha",
-    "eslint":"npx eslint . --fix --ext .js,.jsx,.ts,.tsx",
+    "eslint":"npx eslint . --ext .js,.jsx,.ts,.tsx",
     "format":"npx eslint --fix app"
   },
   "keywords": [],
