@@ -1,0 +1,66 @@
+##################################################################
+#### <描述>
+# IMAGE:node
+# TIME:2021-05-21
+# AUTHOR:邓中强
+##################################################################
+
+##################################################################
+FROM centos:7
+MAINTAINER dzqdzq  <635587322@qq.com>
+##################################################################
+
+# 解决时区问题
+RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
+# 安装必要工具
+RUN yum install -y node telnet wget telnet-server gcc vim
+RUN echo "alias ll='ls -l'" >> ~/.bashrc
+
+# 创建软件目录
+RUN mkdir -p /soft
+
+# 安装依赖包，确保pip不出错
+RUN yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel
+
+# 安装python3
+RUN mkdir /soft/Python-3.7.2
+COPY ./soft/Python-3.7.2 /soft/Python-3.7.2/
+WORKDIR /soft/Python-3.7.2/
+RUN chmod +x configure
+RUN ./configure --prefix=/soft/python3.7.2
+RUN make && make install
+RUN ln -s /soft/python3.7.2/bin/python3.7 /usr/bin/python3
+RUN ln -s /soft/python3.7.2/bin/pip3.7 /usr/bin/pip3
+
+
+# 安装instantclient
+RUN mkdir /soft/instantclient_18_3
+COPY ./soft/instantclient_18_3 /soft/instantclient_18_3/
+
+# 设置系统环境变量
+ENV LD_LIBRARY_PATH=/soft/instantclient_18_3/lib ORACLE_HOME=/soft/instantclient_18_3 WORKON_HOME=/Envs
+
+# 安装cx_Oracle
+RUN pip3 install cx_Oracle==7.1.1
+
+# 安装supervisor
+RUN pip3 install git+https://github.com/Supervisor/supervisor
+RUN ln -s /soft/python3.7.2/bin/supervisord /usr/bin/supervisord
+RUN ln -s /soft/python3.7.2/bin/supervisorctl /usr/bin/supervisorctl
+
+# 设置supervisor配置
+RUN mkdir /etc/supervisor_configs
+COPY ./supervisord.conf /etc/
+
+# 设置supervisor项目配置目录
+VOLUME /etc/supervisor_configs
+
+# 暴露supervisor管理界面端口
+EXPOSE 9001
+
+# 创建应用目录和日志目录
+RUN mkdir -p /app && mkdir -p /opt/logs
+WORKDIR /app
+
+CMD ["supervisord", "-c", "/etc/supervisord.conf"]

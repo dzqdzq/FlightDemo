@@ -57,7 +57,7 @@
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
   },
   "exclude": [
-    "user.ts",
+    "app/user.ts",
     "node_modules",
     "test/*.ts",
     "test/**/*.ts",

@@ -36,7 +36,7 @@ describe('logic', () => {
 
 
   it('lock', async () => {
-    let lock = await redlock.getRedLock().lock('hello', 2000);
+    const lock = await redlock.getRedLock().lock('hello', 2000);
     console.log('执行一些逻辑');
     lock && lock.unlock();
   });
@@ -78,7 +78,7 @@ describe('logic', () => {
     it('payTicketOrder OK', async () => {
       let orderId, result;
       while(true){
-        let n = _.random(1,10);
+        const n = _.random(1,10);
         result = await logic.createTicketOrder('123', 'ticket_100000_'+n);
         if(result && result.code === Codes.OK){
           orderId = result.data.orderId;
